@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
 
-public class Historico {
+public class BalanceHistory {
     public List<Integer> Historico_deposito = new ArrayList<>();
     public List<Integer> Historico_saque = new ArrayList<>();
     public List<String> Historico_deposito_datahora = new ArrayList<>();

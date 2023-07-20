@@ -1,10 +1,13 @@
-public class Main {
-    public static void main(String[] args) {
-        ContaBancaria conta1 = new ContaBancaria();
-        conta1.saque(200);
-        conta1.exibirSaldo();
-        conta1.desbloqueio(399);
-        conta1.historico.exibir(conta1.historico.Historico_deposito, conta1.historico.Historico_deposito_datahora);
+import javax.swing.*;
+
+public class Main
+{
+    public static void main(String[] args)
+    {
+        UserInterface userinterface = new UserInterface();
+        userinterface.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        userinterface.setSize(300, 400);
+        userinterface.setVisible(true);
     }
 }
 
