@@ -1,8 +1,8 @@
 public class BankAccount
 {
-    private int balance = 0, specialWithdrawal = 200;
+    private int balance = 0,
+                specialWithdrawal = 200;
     private boolean block = false;
-    BalanceHistory balancehistory = new BalanceHistory();
     Data data = new Data();
 
     public String getBalance()
@@ -21,7 +21,6 @@ public class BankAccount
         if (!block)
         {
             balance += value;
-            balancehistory.coletor(1, value);
             return String.format("$%d was deposited", value);
         }
         else
@@ -37,7 +36,6 @@ public class BankAccount
             if ((specialWithdrawal + balance >= value) && !(value <= 0))
             {
                 balance -= value;
-                balancehistory.coletor(0, value);
                 return String.format("$%d was withdrawn", value);
             }
             else

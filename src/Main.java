@@ -16,4 +16,5 @@ public class Main
     data de fechamento de fatura
     adicionar pagamento online com identificador da loja NECESSARIO BANCO DE DADOS
     se possivel adicionar um simulador de aproximação
+    Adiciona alguma forma de bloquear todos os metodos quando o cartão fica bloqueado, talvez interface ??
  */

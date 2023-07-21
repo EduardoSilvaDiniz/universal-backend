@@ -6,7 +6,8 @@ import java.util.Random;
 
 public class Data
 {
-    public String name, date;
+    public String name,
+                  date;
     public List<Long> cardNumbers = new ArrayList<>();
     public List<Long> segureNumbers = new ArrayList<>();
 
