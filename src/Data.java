@@ -18,7 +18,7 @@ public class Data
         date = (mes + 3) + "/" + (year + 5);
     }
 
-    private void gerarCartao()
+    private void createCard()
     {
         Random random = new Random();
         for (int i = 0; i < 16; i++)

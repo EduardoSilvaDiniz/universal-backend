@@ -1,71 +1,75 @@
 public class BankAccount
 {
-    public int balance = 0;
-    public boolean block = false;
+    private int balance = 0, specialWithdrawal = 200;
+    private boolean block = false;
     BalanceHistory balancehistory = new BalanceHistory();
     Data data = new Data();
 
-    public void getBalance()
+    public String getBalance()
     {
         if (!block)
         {
-            System.out.println("Seu saldo é : " + this.balance);
+            return String.format("$%d current balance", balance);
         }
         else
         {
-            System.out.println("Não foi possivel verificar seu saldo pois sua conta foi bloqueada");
+            return "Account block!";
         }
-
     }
-    public void deposite(int value)
+    public String toDeposit(int value)
     {
         if (!block)
         {
-            this.balance += value;
+            balance += value;
             balancehistory.coletor(1, value);
-            System.out.println("Foi depositado : " + value);
+            return String.format("$%d was deposited", value);
         }
         else
         {
-            System.out.println("Não foi possivel fazer deposito pois seu cartão foi bloqueado");
+            return "It was not possible to make a deposit because your card has been blocked.";
         }
-        checkBalance();
     }
 
-    public void plunder(int value)
+    public String withdrawal(int value)
     {
+        checkBalance();
         if (!block)
-        {
-            this.balance -= value;
-            balancehistory.coletor(0, value);
-            System.out.println("Foi sacado : " + value);
-        }
+            if ((specialWithdrawal + balance >= value) && !(value <= 0))
+            {
+                balance -= value;
+                balancehistory.coletor(0, value);
+                return String.format("$%d was withdrawn", value);
+            }
+            else
+            {
+                return "It was not possible to make the withdrawal.";
+            }
         else
         {
-            System.out.println("Não foi possivel fazer saque pois seu cartão foi bloqueado");
+            return "It was not possible to make a withdrawal because your card has been blocked.";
         }
-        checkBalance();
     }
     public void checkBalance()
     {
-        if (this.balance < 200)
+        if (balance < -specialWithdrawal + 1)
         {
             block = true;
         }
     }
-    public void unblock(int valor) {
-        if (valor >= (Math.abs(this.balance * 2)))
+    public String unblock(int valor)
+    {
+        if (valor >= (Math.abs(balance * 2)))
         {
             block = false;
-            System.out.println("seu cartão foi desbloqueado");
+            return "Your card has been unblocked.";
         }
         else
         {
-            System.out.println("Valor baixo para desbloquear");
+            return "Low amount to unblock.";
         }
     }
     public String getName()
     {
-        return data.name;
+        return String.format("Account owner %s", data.name);
     }
 }

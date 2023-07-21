@@ -12,9 +12,8 @@ public class Main
 }
 
  /* ideias para melhorar esse projeto
-    adicionar forma interativa de gerenciar a conta
     debico e credito,
     data de fechamento de fatura
-    adicionar pagamento online com identificador da loja
+    adicionar pagamento online com identificador da loja NECESSARIO BANCO DE DADOS
     se possivel adicionar um simulador de aproximação
  */
