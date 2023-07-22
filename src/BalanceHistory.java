@@ -1,43 +1,57 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.time.LocalDateTime;
 
 public class BalanceHistory extends JFrame {
-    public List<Integer> historyDeposit = new ArrayList<>();
-    public List<Integer> historywithdrawal = new ArrayList<>();
-    public List<String> historyDepositDateHours = new ArrayList<>();
-    public List<String> historywithdrawalDateHours = new ArrayList<>();
-    public JButton
+
+    private ArrayList<String> historywithdrawal = new ArrayList<>();
+    private ArrayList<String> historyDeposit = new ArrayList<>();
+    private StringBuilder historicoTexto = new StringBuilder();
+    private LocalDateTime dateTime = LocalDateTime.now();
+    private JLabel label = new JLabel();
+
     public BalanceHistory()
     {
-        super("Balance History");
+        super("History Balance");
         setLayout(new FlowLayout());
+    }
 
-    }
-    public String Make(int tipo, int valor)
+    public void addHistoryWithdrawal(String his)
     {
-        LocalDateTime time = LocalDateTime.now();
-        if (tipo == 1)
-        {
-            int year = time.getYear(), mes = time.getMonthValue(), day = time.getDayOfMonth(), hora = time.getHour(), min = time.getMinute();
-            historyDepositDateHours.add(day + "/" + mes + "/" + year + " " + hora + ":" + min);
-            historyDeposit.add(valor);
-        }
-        else
-        {
-            int year = time.getYear(), mes = time.getMonthValue(), day = time.getDayOfMonth(), hora = time.getHour(), min = time.getMinute();
-            historywithdrawalDateHours.add(day + "/" + mes + "/" + year + " " + hora + ":" + min);
-            historywithdrawal.add(valor);
-        }
-        return null;
+        // Adiciona data e hora junto e o indentificador withdrawal
+        his = String.format("withdrawal,%s,%s/%s/%s,%s:%s", his, dateTime.getDayOfMonth(), dateTime.getMonthValue(),
+                                                            dateTime.getYear(), dateTime.getHour(), dateTime.getMinute());
+        // Adiciona ao arraylist
+        historywithdrawal.add(his);
     }
-    public void exibir(List<Integer> his, List<String> date)
+
+    public void addHistoryDeposit(String his)
     {
-        for (int i = 0; i < his.size(); i++)
+        // Adiciona data e hora junto e o indentificador deposit
+        his = String.format("deposit,%s,%s/%s/%s,%s:%s", his, dateTime.getDayOfMonth(), dateTime.getMonthValue(),
+                                                         dateTime.getYear(), dateTime.getHour(), dateTime.getMinute());
+        // Adiciona ao arraylist
+        historyDeposit.add(his);
+    }
+
+    public void updateLabel()
+    {
+        // Reiniciando StringBuilder e label para evitar mostrar valores repetidos
+        historicoTexto.setLength(0);
+        label.setText("");
+
+        // Concatenando todos os elementos do arraylist em um stringbuilder para exibir no label
+        for (String pagamento : historywithdrawal)
         {
-            System.out.println("Foi depositado : " + his.get(i) + "$" + " Na data e hora : " + date.get(i));
+            historicoTexto.append(String.format("$%s withdrawal\n", pagamento)).append("<br>"); // tags html para adiciona quebra de linha
         }
+        label = new JLabel("<html>" + historicoTexto.toString() + "</html>"); // tags html para funciona <br>
+
+        // Adicionando o novo label
+        add(label);
+
+        // Recarregando o label
+        revalidate();
     }
 }

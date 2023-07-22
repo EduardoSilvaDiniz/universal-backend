@@ -8,9 +8,11 @@ public class UserInterface extends JFrame
                     buttonGetBalance,
                     buttonToDeposit,
                     buttonWithdrawal,
-                    buttonUnblock;
+                    buttonUnblock,
+                    buttonHistory;
 
     private BankAccount account;
+    private BalanceHistory balancehistory = new BalanceHistory();
     private String resp;
     public UserInterface()
     {
@@ -26,6 +28,7 @@ public class UserInterface extends JFrame
                 add(buttonGetBalance);
                 add(buttonToDeposit);
                 add(buttonWithdrawal);
+                add(buttonHistory);
                 revalidate();
             }
         });
@@ -55,6 +58,7 @@ public class UserInterface extends JFrame
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
                 resp = JOptionPane.showInputDialog("How much do you want to deposit?");
+                balancehistory.addHistoryDeposit(resp);
                 JOptionPane.showMessageDialog(null, account.toDeposit(Integer.parseInt(resp)));
             }
         });
@@ -64,6 +68,7 @@ public class UserInterface extends JFrame
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
                 resp = JOptionPane.showInputDialog("How much do you want to withdraw?");
+                balancehistory.addHistoryWithdrawal(resp);
                 JOptionPane.showMessageDialog(null, account.withdrawal(Integer.parseInt(resp)));
             }
         });
@@ -75,6 +80,17 @@ public class UserInterface extends JFrame
             {
                 resp = JOptionPane.showInputDialog("How much do you want to deposit?");
                 JOptionPane.showMessageDialog(null, account.unblock(Integer.parseInt(resp)));
+            }
+        });
+
+        buttonHistory = new JButton("History Balance");
+        buttonHistory.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent ent)
+            {
+                balancehistory.updateLabel();
+                balancehistory.setSize(300, 400);
+                balancehistory.setVisible(true);
             }
         });
     }
