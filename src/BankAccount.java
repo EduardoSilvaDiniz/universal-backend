@@ -1,8 +1,13 @@
+import Cards.Credit;
+import Cards.Debit;
+
 public class BankAccount
 {
-    private int balance = 0,
+    private int balance,
                 specialWithdrawal = 200;
     private boolean block = false;
+    Credit cardCredit;
+    Debit cardDebit;
     Data data = new Data();
 
     public String getBalance()
