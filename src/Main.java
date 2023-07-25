@@ -4,10 +4,11 @@ public class Main
 {
     public static void main(String[] args)
     {
-        UserInterface userinterface = new UserInterface();
-        userinterface.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        userinterface.setSize(300, 400);
-        userinterface.setVisible(true);
+        new Postgres();
+//        UserInterface userinterface = new UserInterface();
+//        userinterface.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        userinterface.setSize(300, 400);
+//        userinterface.setVisible(true);
     }
 }
 
