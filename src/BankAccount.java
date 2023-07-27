@@ -1,25 +1,13 @@
-import Cards.Credit;
-import Cards.Debit;
-
 public class BankAccount
 {
-    private int balance,
-                specialWithdrawal = 200;
+    private int balance;
+    private final int specialWithdrawal = 200;
     private boolean block = false;
-    Credit cardCredit;
-    Debit cardDebit;
-    Data data = new Data();
-
-    public String getBalance()
+    Data data;
+    public BankAccount(String name)
     {
-        if (!block)
-        {
-            return String.format("$%d current balance", balance);
-        }
-        else
-        {
-            return "Account block!";
-        }
+        data = new Data(name);
+
     }
     public String toDeposit(int value)
     {
@@ -71,8 +59,22 @@ public class BankAccount
             return "Low amount to unblock.";
         }
     }
-    public String getName()
+    public String getNameInterface()
     {
-        return String.format("Account owner %s", data.name);
+        return String.format("Account owner %s", data.getName());
+    }
+    public String getBalanceInterface()
+    {
+        if (!block)
+        {
+            return String.format("$%d current balance", balance);
+        }
+        else
+        {
+            return "Account block!";
+        }
+    }
+    public int getBalance() {
+        return balance;
     }
 }

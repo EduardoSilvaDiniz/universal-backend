@@ -3,43 +3,62 @@ import java.awt.*;
 
 public class UserInterface extends JFrame
 {
-    private JButton buttonCreateAccout,
-                    buttonShowName,
-                    buttonGetBalance,
-                    buttonToDeposit,
-                    buttonWithdrawal,
-                    buttonUnblock,
-                    buttonHistory;
-
+    private final JButton buttonShowName;
+    private final JButton buttonGetBalance;
+    private final JButton buttonGetDate;
+    private final JButton buttonGetCardNumbers;
+    private final JButton buttonGetSecureNumbers;
+    private final JButton buttonToDeposit;
+    private final JButton buttonWithdrawal;
+    private final JButton buttonHistory;
     private BankAccount account;
-    private BalanceHistory balancehistory = new BalanceHistory();
+    private final BalanceHistory balancehistory = new BalanceHistory();
     private String resp;
     public UserInterface()
     {
-        super("Menu");
+        super("Bank Simulator");
         setLayout(new FlowLayout());
-        buttonCreateAccout = new JButton("Add a new Account bank");
-        buttonCreateAccout.addActionListener(new java.awt.event.ActionListener()
+        JButton buttonCreateAccount = new JButton("Add a new Account bank");
+        buttonCreateAccount.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                account = new BankAccount();
-                add(buttonShowName);
-                add(buttonGetBalance);
-                add(buttonToDeposit);
-                add(buttonWithdrawal);
-                add(buttonHistory);
-                revalidate();
+                resp = JOptionPane.showInputDialog(null, "Whats is your name?");
+                try
+                {
+                    if (resp.matches("^[a-zA-Z]*$"))
+                    {
+                        account = new BankAccount(resp);
+                        buttonCreateAccount.setVisible(false);
+                        add(buttonShowName);
+                        add(buttonGetBalance);
+                        add(buttonGetDate);
+                        add(buttonGetCardNumbers);
+                        add(buttonGetSecureNumbers);
+                        add(buttonToDeposit);
+                        add(buttonWithdrawal);
+                        add(buttonHistory);
+                        revalidate();
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "value is invalid, only uppercase and lowercase letters");
+                    }
+                }
+                catch (Exception e)
+                {
+                    JOptionPane.showMessageDialog(null, "value is invalid or null");
+                }
             }
         });
-        add(buttonCreateAccout);
+        add(buttonCreateAccount);
 
         buttonShowName = new JButton("Show name");
         buttonShowName.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                JOptionPane.showMessageDialog(null, account.getName());
+                JOptionPane.showMessageDialog(null, account.getNameInterface());
             }
         });
         buttonGetBalance = new JButton("Get balance");
@@ -47,19 +66,60 @@ public class UserInterface extends JFrame
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                JOptionPane.showMessageDialog(null, account.getBalance());
+                JOptionPane.showMessageDialog(null, account.getBalanceInterface());
             }
         });
 
+        buttonGetDate = new JButton("Get date");
+        buttonGetDate.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent ent)
+            {
+                JOptionPane.showMessageDialog(null, account.data.getDate());
+            }
+        });
 
-        buttonToDeposit = new JButton("To deposit");
+        buttonGetCardNumbers = new JButton("Get card numbers");
+        buttonGetCardNumbers.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent ent)
+            {
+                JOptionPane.showMessageDialog(null, account.data.getCardNumbers());
+            }
+        });
+
+        buttonGetSecureNumbers = new JButton("Get secure numbers");
+        buttonGetSecureNumbers.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent ent)
+            {
+                JOptionPane.showMessageDialog(null, account.data.getSecureNumbers());
+            }
+        });
+
+        buttonToDeposit = new JButton("Deposit");
         buttonToDeposit.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
                 resp = JOptionPane.showInputDialog("How much do you want to deposit?");
-                balancehistory.addHistoryDeposit(resp);
-                JOptionPane.showMessageDialog(null, account.toDeposit(Integer.parseInt(resp)));
+                try
+                {
+                    int test = Integer.parseInt(resp);
+                    if ( !(resp.isEmpty()) && test > 0)
+                    {
+                        JOptionPane.showMessageDialog(null, account.toDeposit(Integer.parseInt(resp)));
+                        balancehistory.addHistoryGeneric(resp, account.getBalance(), "Deposit");
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "value is invalid, only positive numbers");
+                    }
+                }
+                catch (Exception e)
+                {
+                    JOptionPane.showMessageDialog(null, "value is invalid or null");
+                }
             }
         });
         buttonWithdrawal = new JButton("Withdrawal");
@@ -68,18 +128,48 @@ public class UserInterface extends JFrame
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
                 resp = JOptionPane.showInputDialog("How much do you want to withdraw?");
-                balancehistory.addHistoryWithdrawal(resp);
-                JOptionPane.showMessageDialog(null, account.withdrawal(Integer.parseInt(resp)));
+                try
+                {
+                    int test = Integer.parseInt(resp);
+                    if ( !(resp.isEmpty()) && test > 0 && account.getBalance() >= test)
+                    {
+                        JOptionPane.showMessageDialog(null, account.withdrawal(Integer.parseInt(resp)));
+                        balancehistory.addHistoryGeneric(resp, account.getBalance(), "Withdrawal");
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "value is invalid, only positive numbers");
+                    }
+                }
+                catch (Exception e)
+                {
+                    JOptionPane.showMessageDialog(null, "value is invalid or null");
+                }
             }
         });
 
-        buttonUnblock = new JButton("Unblock card");
+        JButton buttonUnblock = new JButton("Unblock card");
         buttonUnblock.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                resp = JOptionPane.showInputDialog("How much do you want to deposit?");
-                JOptionPane.showMessageDialog(null, account.unblock(Integer.parseInt(resp)));
+                try
+                {
+                    int test = Integer.parseInt(resp);
+                    if ( !(resp.isEmpty()) && test > 0)
+                    {
+                        resp = JOptionPane.showInputDialog("How much do you want to deposit?");
+                        JOptionPane.showMessageDialog(null, account.unblock(Integer.parseInt(resp)));
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "value is invalid, only positive numbers");
+                    }
+                }
+                catch (Exception e)
+                {
+                    JOptionPane.showMessageDialog(null, "value is invalid or null");
+                }
             }
         });
 
@@ -89,7 +179,7 @@ public class UserInterface extends JFrame
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
                 balancehistory.updateLabel();
-                balancehistory.setSize(300, 400);
+                balancehistory.setSize(600, 400);
                 balancehistory.setVisible(true);
             }
         });
