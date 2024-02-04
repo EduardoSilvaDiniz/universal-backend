@@ -1,7 +1,11 @@
+package Bank;
+
+import Account.BalanceHistory;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class UserInterface extends JFrame
+public class UserInterface extends JFrame //TODO opção de idioma pt-br/en-US
 {
     private final JButton buttonShowName;
     private final JButton buttonGetBalance;
@@ -11,24 +15,24 @@ public class UserInterface extends JFrame
     private final JButton buttonToDeposit;
     private final JButton buttonWithdrawal;
     private final JButton buttonHistory;
-    private BankAccount account;
+    private UserDataManager account;
     private final BalanceHistory balancehistory = new BalanceHistory();
-    private String resp;
+    private String name;
     public UserInterface()
     {
         super("Bank Simulator");
         setLayout(new FlowLayout());
-        JButton buttonCreateAccount = new JButton("Add a new Account bank");
+        JButton buttonCreateAccount = new JButton("Add a new Cards.Account bank");
         buttonCreateAccount.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                resp = JOptionPane.showInputDialog(null, "Whats is your name?");
+                name = JOptionPane.showInputDialog(null, "Whats is your name?");
                 try
                 {
-                    if (resp.matches("^[a-zA-Z]*$"))
+                    if (name.matches("^[a-zA-Z]*$"))
                     {
-                        account = new BankAccount(resp);
+                        account = new UserDataManager(name);
                         buttonCreateAccount.setVisible(false);
                         add(buttonShowName);
                         add(buttonGetBalance);
@@ -75,7 +79,7 @@ public class UserInterface extends JFrame
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                JOptionPane.showMessageDialog(null, account.data.getDate());
+                JOptionPane.showMessageDialog(null, account.account.getDate());
             }
         });
 
@@ -84,7 +88,7 @@ public class UserInterface extends JFrame
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                JOptionPane.showMessageDialog(null, account.data.getCardNumbers());
+                JOptionPane.showMessageDialog(null, account.account.getCardNumbers());
             }
         });
 
@@ -93,7 +97,7 @@ public class UserInterface extends JFrame
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                JOptionPane.showMessageDialog(null, account.data.getSecureNumbers());
+                JOptionPane.showMessageDialog(null, account.account.getSecureNumbers());
             }
         });
 
@@ -102,14 +106,14 @@ public class UserInterface extends JFrame
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                resp = JOptionPane.showInputDialog("How much do you want to deposit?");
+                name = JOptionPane.showInputDialog("How much do you want to deposit?");
                 try
                 {
-                    int test = Integer.parseInt(resp);
-                    if ( !(resp.isEmpty()) && test > 0)
+                    int test = Integer.parseInt(name);
+                    if ( !(name.isEmpty()) && test > 0)
                     {
-                        JOptionPane.showMessageDialog(null, account.toDeposit(Integer.parseInt(resp)));
-                        balancehistory.addHistoryGeneric(resp, account.getBalance(), "Deposit");
+                        JOptionPane.showMessageDialog(null, account.Deposit(Integer.parseInt(name)));
+                        balancehistory.addHistoryGeneric(name, account.getBalance(), "Deposit");
                     }
                     else
                     {
@@ -127,14 +131,14 @@ public class UserInterface extends JFrame
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                resp = JOptionPane.showInputDialog("How much do you want to withdraw?");
+                name = JOptionPane.showInputDialog("How much do you want to withdraw?");
                 try
                 {
-                    int test = Integer.parseInt(resp);
-                    if ( !(resp.isEmpty()) && test > 0 && account.getBalance() >= test)
+                    int test = Integer.parseInt(name);
+                    if ( !(name.isEmpty()) && test > 0 && account.getBalance() >= test)
                     {
-                        JOptionPane.showMessageDialog(null, account.withdrawal(Integer.parseInt(resp)));
-                        balancehistory.addHistoryGeneric(resp, account.getBalance(), "Withdrawal");
+                        JOptionPane.showMessageDialog(null, account.withdrawal(Integer.parseInt(name)));
+                        balancehistory.addHistoryGeneric(name, account.getBalance(), "Withdrawal");
                     }
                     else
                     {
@@ -155,11 +159,11 @@ public class UserInterface extends JFrame
             {
                 try
                 {
-                    int test = Integer.parseInt(resp);
-                    if ( !(resp.isEmpty()) && test > 0)
+                    int test = Integer.parseInt(name);
+                    if ( !(name.isEmpty()) && test > 0)
                     {
-                        resp = JOptionPane.showInputDialog("How much do you want to deposit?");
-                        JOptionPane.showMessageDialog(null, account.unblock(Integer.parseInt(resp)));
+                        name = JOptionPane.showInputDialog("How much do you want to deposit?");
+                        JOptionPane.showMessageDialog(null, account.unblock(Integer.parseInt(name)));
                     }
                     else
                     {

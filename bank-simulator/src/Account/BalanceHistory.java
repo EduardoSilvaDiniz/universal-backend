@@ -1,3 +1,5 @@
+package Account;
+
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDateTime;
@@ -22,7 +24,7 @@ public class BalanceHistory extends JFrame {
     public void addHistoryWithdrawal(String his, int balance)
     {
         // Adiciona data e hora juntamente com o tipo de execução
-        his = String.format("$%s,  Date: %s/%s/%s, Time: %s:%s, withdrawal. Balance Account: %d", his, dateTime.getDayOfMonth(), dateTime.getMonthValue(),
+        his = String.format("$%s,  Date: %s/%s/%s, Time: %s:%s, withdrawal. Balance Cards.Account: %d", his, dateTime.getDayOfMonth(), dateTime.getMonthValue(),
                                                                                                 dateTime.getYear(), dateTime.getHour(), dateTime.getMinute(), balance);
         // Adiciona a variável
         historywithdrawal.add(his);
@@ -31,7 +33,7 @@ public class BalanceHistory extends JFrame {
     public void addHistoryDeposit(String his, int balance)
     {
         // Adiciona data e hora juntamente com o tipo de execução
-        his = String.format("$%s,  Date: %s/%s/%s, Time: %s:%s, deposit. Balance Account: %d", his, dateTime.getDayOfMonth(), dateTime.getMonthValue(),
+        his = String.format("$%s,  Date: %s/%s/%s, Time: %s:%s, deposit. Balance Cards.Account: %d", his, dateTime.getDayOfMonth(), dateTime.getMonthValue(),
                                                                                              dateTime.getYear(), dateTime.getHour(), dateTime.getMinute(), balance);
         // Adiciona a variável
         historyDeposit.add(his);
@@ -40,7 +42,7 @@ public class BalanceHistory extends JFrame {
     public void addHistoryGeneric(String resp, int balance, String type)
     {
         // Adiciona data e hora juntamente com o tipo de execução
-        resp = String.format("$%s,  Date: %s/%s/%s, Time: %s:%s, %s. Balance Account: %d", resp, dateTime.getDayOfMonth(), dateTime.getMonthValue(),
+        resp = String.format("$%s,  Date: %s/%s/%s, Time: %s:%s, %s. Balance Cards.Account: %d", resp, dateTime.getDayOfMonth(), dateTime.getMonthValue(),
                                                                                         dateTime.getYear(), dateTime.getHour(), dateTime.getMinute(), type, balance);
         // Adiciona a variável
         historyGeneric.add(resp);
