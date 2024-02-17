@@ -1,12 +1,14 @@
 package Bank;
 
+import Account.Account;
+
 public class UserDataManager
 {
-    private void checkBalance()
+    private void checkBalance(Account account)
     {
         if (account.getBalance() < account.getSpecialWithdrawal() + 1)
         {
-            account.setBlock(true);
+            account
         }
     }
 

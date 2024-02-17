@@ -1,11 +1,11 @@
-package Bank;
+package UI;
 
 import Account.BalanceHistory;
-
+import Bank.UserDataManager;
 import javax.swing.*;
 import java.awt.*;
 
-public class UserInterface extends JFrame //TODO opção de idioma pt-br/en-US
+public class Account extends JFrame //TODO opção de idioma pt-br/en-US
 {
     private final JButton buttonShowName;
     private final JButton buttonGetBalance;
@@ -15,10 +15,9 @@ public class UserInterface extends JFrame //TODO opção de idioma pt-br/en-US
     private final JButton buttonToDeposit;
     private final JButton buttonWithdrawal;
     private final JButton buttonHistory;
-    private UserDataManager account;
     private final BalanceHistory balancehistory = new BalanceHistory();
     private String name;
-    public UserInterface()
+    public Account(Account account)
     {
         super("Bank Simulator");
         setLayout(new FlowLayout());
@@ -32,7 +31,6 @@ public class UserInterface extends JFrame //TODO opção de idioma pt-br/en-US
                 {
                     if (name.matches("^[a-zA-Z]*$"))
                     {
-                        account = new UserDataManager(name);
                         buttonCreateAccount.setVisible(false);
                         add(buttonShowName);
                         add(buttonGetBalance);
@@ -62,7 +60,7 @@ public class UserInterface extends JFrame //TODO opção de idioma pt-br/en-US
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                JOptionPane.showMessageDialog(null, account.getNameInterface());
+                JOptionPane.showMessageDialog(null, UDM.getNameInterface(account));
             }
         });
         buttonGetBalance = new JButton("Get balance");
