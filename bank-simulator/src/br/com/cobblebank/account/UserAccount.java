@@ -1,4 +1,4 @@
-package Account;
+package br.com.cobblebank.account;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Account
+public class UserAccount
 {
     private int balance;
     private final int specialWithdrawal = 200;
@@ -18,7 +18,7 @@ public class Account
     private final int[] cardNumbers = new int[16];
     private final int[] secureNumbers = new int[3];
 
-    public Account(String name)
+    public UserAccount(String name)
     {
         SecureRandom random = new SecureRandom();
         
@@ -71,5 +71,11 @@ public class Account
 
     public boolean isBlock() {
         return block;
+    }
+    public void setBalance(Integer value){
+        balance = value;
+    }
+    public void setBlock(boolean value){
+        block = value;
     }
 }

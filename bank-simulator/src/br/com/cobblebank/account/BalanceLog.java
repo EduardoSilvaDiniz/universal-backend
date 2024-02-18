@@ -1,4 +1,4 @@
-package Account;
+package br.com.cobblebank.account;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BalanceHistory extends JFrame {
+public class BalanceLog extends JFrame {
 
     private final List<String> historywithdrawal = new ArrayList<String>();
     private final List<String> historyDeposit = new ArrayList<String>();
@@ -15,7 +15,7 @@ public class BalanceHistory extends JFrame {
     private final LocalDateTime dateTime = LocalDateTime.now();
     private JLabel label = new JLabel();
 
-    public BalanceHistory()
+    public BalanceLog()
     {
         super("History Balance");
         setLayout(new FlowLayout());

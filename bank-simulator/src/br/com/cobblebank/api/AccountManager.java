@@ -1,18 +1,17 @@
-package Bank;
+package br.com.cobblebank.api;
+import br.com.cobblebank.account.UserAccount;
 
-import Account.Account;
-
-public class UserDataManager
+public class AccountManager
 {
-    private void checkBalance(Account account)
+    private void checkBalance(UserAccount account)
     {
         if (account.getBalance() < account.getSpecialWithdrawal() + 1)
         {
-            account
+            account.setBlock(true);
         }
     }
 
-    public String Deposit(int value)
+    public String Deposit(int value,UserAccount account)
     {
         if (!account.isBlock())
         {
@@ -25,9 +24,8 @@ public class UserDataManager
         }
     }
 
-    public String withdrawal(int value)
+    public String withdrawal(int value,UserAccount account)
     {
-        checkBalance();
         if (!account.isBlock())
             if ((account.getSpecialWithdrawal() + account.getBalance() >= value) && !(value <= 0))
             {
@@ -43,7 +41,7 @@ public class UserDataManager
             return "It was not possible to make a withdrawal because your card has been blocked.";
         }
     }
-    public String unblock(int valor) //TODO Melhoria, controle de block e unblock do cartão
+    public String unblock(int valor,UserAccount account) //TODO Melhoria, controle de block e unblock do cartão
     {
         if (valor >= (Math.abs(account.getBalance() * 2)))
         {
@@ -55,11 +53,11 @@ public class UserDataManager
             return "Low amount to unblock.";
         }
     }
-    public String getNameInterface() //TODO melhoria, mensagem
+    public String getNameInterface(UserAccount account) //TODO melhoria, mensagem
     {
         return String.format("Cards.Account owner %s", account.getName());
     }
-    public String getBalanceInterface() // TODO melhoria, mensagem do else
+    public String getBalanceInterface(UserAccount account) // TODO melhoria, mensagem do else
     {
         if (!account.isBlock())
         {

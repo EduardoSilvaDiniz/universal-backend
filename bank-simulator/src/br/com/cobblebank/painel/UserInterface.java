@@ -1,11 +1,13 @@
-package UI;
+package br.com.cobblebank.painel;
 
-import Account.BalanceHistory;
-import Bank.UserDataManager;
+import br.com.cobblebank.account.BalanceLog;
+import br.com.cobblebank.account.UserAccount;
+import br.com.cobblebank.api.AccountManager;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class Account extends JFrame //TODO opção de idioma pt-br/en-US
+public class UserInterface extends JFrame //TODO opção de idioma pt-br/en-US
 {
     private final JButton buttonShowName;
     private final JButton buttonGetBalance;
@@ -15,9 +17,10 @@ public class Account extends JFrame //TODO opção de idioma pt-br/en-US
     private final JButton buttonToDeposit;
     private final JButton buttonWithdrawal;
     private final JButton buttonHistory;
-    private final BalanceHistory balancehistory = new BalanceHistory();
+    private final BalanceLog balancehistory = new BalanceLog();
+
     private String name;
-    public Account(Account account)
+    public UserInterface(UserAccount account, AccountManager manager)
     {
         super("Bank Simulator");
         setLayout(new FlowLayout());
@@ -60,7 +63,7 @@ public class Account extends JFrame //TODO opção de idioma pt-br/en-US
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                JOptionPane.showMessageDialog(null, UDM.getNameInterface(account));
+                JOptionPane.showMessageDialog(null, manager.getNameInterface(account));
             }
         });
         buttonGetBalance = new JButton("Get balance");
@@ -68,7 +71,7 @@ public class Account extends JFrame //TODO opção de idioma pt-br/en-US
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                JOptionPane.showMessageDialog(null, account.getBalanceInterface());
+                JOptionPane.showMessageDialog(null, manager.getBalanceInterface(account));
             }
         });
 
@@ -77,7 +80,7 @@ public class Account extends JFrame //TODO opção de idioma pt-br/en-US
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                JOptionPane.showMessageDialog(null, account.account.getDate());
+                JOptionPane.showMessageDialog(null, account.getDate());
             }
         });
 
@@ -86,7 +89,7 @@ public class Account extends JFrame //TODO opção de idioma pt-br/en-US
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                JOptionPane.showMessageDialog(null, account.account.getCardNumbers());
+                JOptionPane.showMessageDialog(null, account.getCardNumbers());
             }
         });
 
@@ -95,7 +98,7 @@ public class Account extends JFrame //TODO opção de idioma pt-br/en-US
         {
             public void actionPerformed(java.awt.event.ActionEvent ent)
             {
-                JOptionPane.showMessageDialog(null, account.account.getSecureNumbers());
+                JOptionPane.showMessageDialog(null, account.getSecureNumbers());
             }
         });
 
@@ -110,7 +113,7 @@ public class Account extends JFrame //TODO opção de idioma pt-br/en-US
                     int test = Integer.parseInt(name);
                     if ( !(name.isEmpty()) && test > 0)
                     {
-                        JOptionPane.showMessageDialog(null, account.Deposit(Integer.parseInt(name)));
+                        JOptionPane.showMessageDialog(null, manager.Deposit(Integer.parseInt(name), account));
                         balancehistory.addHistoryGeneric(name, account.getBalance(), "Deposit");
                     }
                     else
@@ -135,7 +138,7 @@ public class Account extends JFrame //TODO opção de idioma pt-br/en-US
                     int test = Integer.parseInt(name);
                     if ( !(name.isEmpty()) && test > 0 && account.getBalance() >= test)
                     {
-                        JOptionPane.showMessageDialog(null, account.withdrawal(Integer.parseInt(name)));
+                        JOptionPane.showMessageDialog(null, manager.withdrawal(Integer.parseInt(name), account));
                         balancehistory.addHistoryGeneric(name, account.getBalance(), "Withdrawal");
                     }
                     else
@@ -161,7 +164,7 @@ public class Account extends JFrame //TODO opção de idioma pt-br/en-US
                     if ( !(name.isEmpty()) && test > 0)
                     {
                         name = JOptionPane.showInputDialog("How much do you want to deposit?");
-                        JOptionPane.showMessageDialog(null, account.unblock(Integer.parseInt(name)));
+                        JOptionPane.showMessageDialog(null, manager.unblock(Integer.parseInt(name), account));
                     }
                     else
                     {

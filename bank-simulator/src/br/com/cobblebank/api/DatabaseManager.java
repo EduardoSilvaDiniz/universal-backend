@@ -1,24 +1,29 @@
-package Bank;
+package br.com.cobblebank.api;
 
-import Account.Account;
+import br.com.cobblebank.account.UserAccount;
+import br.com.cobblebank.account.BalanceLog;
 
 import java.util.HashMap;
 
-public class DataBase
+public class DatabaseManager
 {
-    HashMap<Integer, Account> whiteList = new HashMap<Integer, Account>();
-    HashMap<Integer, Account> blackList = new HashMap<Integer, Account>();
+    HashMap<Integer, UserAccount> whiteList = new HashMap<Integer, UserAccount>();
+    HashMap<Integer, UserAccount> blackList = new HashMap<Integer, UserAccount>();
     Integer idWhite = 0;
     Integer idBlack = 0;
 
     public void addUser(String name, Integer id) //TODO adiciona testes
     {
-        whiteList.put(idWhite, new Account(name));
+        whiteList.put(idWhite, new UserAccount(name));
         idWhite++;
+    }
+    public UserAccount getAccount(Integer id) {
+
+        return whiteList.get(id);
     }
 
     //TODO metodo para procurar o ID da conta na whitelist e blacklist e retornar qual ela faz parte
-    public String seachID(Account account)
+    public String seachID(UserAccount account)
     {
         if (whiteList.containsValue(account)){
             return "white";
@@ -31,7 +36,7 @@ public class DataBase
     }
 
     //TODO metodo que move a conta do whilelist para blacklist e vise versa
-    public void moveAccount(Account account)
+    public void moveAccount(UserAccount account)
     {
         if (whiteList.containsValue(account)){
             whiteList.remove(account);
