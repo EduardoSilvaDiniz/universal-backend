@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.stream.Collectors;
 
-//TODO subistituir year e month por dataDeValidade
+//TODO substituir year e month por dataDeValidade
 //TODO adiciona a escolha se o cartão é debito ou credito ou ambos
 public class Card implements Serializable {
   private int limite;
@@ -46,5 +46,4 @@ public class Card implements Serializable {
             .mapToObj(Integer::toString)
             .collect(Collectors.joining(""));
   }
-
 }

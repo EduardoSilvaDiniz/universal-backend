@@ -13,7 +13,7 @@ package br.com.cobblebank.painel;
 //    private final BalanceLog balancehistory = new BalanceLog();
 //
 //    private String name;
-//    public UserInterface(AccountManager manager)
+//    public UserInterface()
 //    {
 //        super("Bank Simulator");
 //        setLayout(new FlowLayout());
@@ -52,8 +52,7 @@ package br.com.cobblebank.painel;
 //        add(buttonCreateAccount);
 //
 //        buttonShowName = new JButton("Show name");
-//        buttonShowName.addActionListener(new java.awt.event.ActionListener()
-//        {
+//        buttonShowName.addActionListener(new java.awt.event.ActionListener() {
 //            public void actionPerformed(java.awt.event.ActionEvent ent)
 //            {
 //                JOptionPane.showMessageDialog(null, manager.getNameInterface(account));
