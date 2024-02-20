@@ -1,12 +1,13 @@
-package br.com.cobblebank.account;
+package br.com.cobblebank.painel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BalanceLog extends JFrame {
+public class BalanceLog extends JFrame implements Serializable {
 
     private final List<String> historywithdrawal = new ArrayList<String>();
     private final List<String> historyDeposit = new ArrayList<String>();
