@@ -19,12 +19,7 @@ public class AdminInterface extends JFrame implements UI {
     buttonsConstrutor();
   }
 
-  /**
-   * metodo que criar os botoçoes e adiciona ao painel
-   *
-   * @param name test
-   */
-  private void buttonsConstrutor(String name){
+  private void buttonsConstrutor(){
     JButton buttonShowName = new JButton("botão novo");
     buttonShowName.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent ent) {

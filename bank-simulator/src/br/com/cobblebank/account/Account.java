@@ -11,10 +11,8 @@ public class Account implements Serializable {
   private int dataCriado;
   private boolean block = false;
   public Card card;
-  public User user;
 
   public Account(String name) {
-    user = new User(name);
     Scanner scanner = new Scanner(System.in);
     System.out.println("Seu cartão é credito, debito ou ambos?");
     String function = scanner.nextLine();
